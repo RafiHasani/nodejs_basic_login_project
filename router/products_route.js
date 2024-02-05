@@ -5,4 +5,6 @@ const productsController = require("../controllers/products/productsController.j
 
 router.get("/getproducts", productsController.getProducts);
 
+router.get("/getproductsfilter", productsController.filterProduct);
+
 module.exports = router;

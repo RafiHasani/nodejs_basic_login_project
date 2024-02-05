@@ -1,3 +1,4 @@
+const { number } = require("joi");
 const mdb = require("mongoose");
 
 // const annotation = new mdb.schema({
@@ -10,7 +11,17 @@ const mdb = require("mongoose");
 
 const SchemaProduct = new mdb.Schema({
   content: { type: String },
-  annotation: { type: ["mixed"] },
+  annotation: {
+    type: [
+      {
+        label: [],
+        notes: [],
+        points: [],
+        imageWidth: { type: Number },
+        imageHeight: { type: Number },
+      },
+    ],
+  },
   extras: { type: String },
 });
 

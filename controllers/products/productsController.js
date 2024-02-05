@@ -43,4 +43,41 @@ const getProducts = async (req, res) => {
   }
 };
 
-module.exports = { getProducts };
+const filterProduct = async (req, res) => {
+  const qurey = req.query;
+
+  if (qurey) {
+    console.log(qurey);
+    const options = qurey.clouth.split(",");
+
+    const filter = {
+      "annotation.label": { $in: options },
+    };
+
+    const filteredProducts = await Products.find(filter).limit(20).exec();
+
+    res.json({
+      statusCode: 200,
+      data: filteredProducts,
+      message: "Products data load successfull.",
+      error: null,
+      state: "OK",
+      pagination: {
+        page: 1,
+        perpage: 20,
+        count: filteredProducts.length,
+        sort: "asc",
+      },
+    });
+  } else {
+    res.json({
+      statusCode: 400,
+      data: null,
+      message: "Something went wrong!",
+      error: "Error",
+      state: "OK",
+    });
+  }
+};
+
+module.exports = { getProducts, filterProduct };
